@@ -1,5 +1,4 @@
 # django-docker
-Template for Building Django Coding Environment in Docker
 
 Dieses Repository bietet ein Template für den Aufbau einer Django-Entwicklungsumgebung in Docker. Es enthält alle notwendigen Konfigurationsdateien und Skripte, um ein neues Django-Projekt zu erstellen, die Datenbankmigrationen durchzuführen und einen Superuser zu erstellen.
 
@@ -37,8 +36,8 @@ DB_PORT=5432
 Stelle sicher, dass das Start-Skript ausführbar ist und führe es aus:
 
 ````
-chmod +x [start.sh](http://_vscodecontentref_/1)
-[start.sh](http://_vscodecontentref_/2)
+chmod +x start.sh
+./start.sh
 ````
 Das Skript führt die folgenden Schritte aus:
 
