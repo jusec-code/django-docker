@@ -18,12 +18,12 @@ services:
       SUPERUSER_NAME: ${SUPERUSER_NAME}
       SUPERUSER_EMAIL: ${SUPERUSER_EMAIL}
       SUPERUSER_PASSWORD: ${SUPERUSER_PASSWORD}
-      SETTINGS_DIR: ${SETTINGS_DIR}
+      DJANGO_PROJECT: ${DJANGO_PROJECT}
     depends_on:
       - db
 
   db:
-    image: postgres
+    image: postgres:17-bookworm
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
     env_file:

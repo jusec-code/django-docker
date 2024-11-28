@@ -7,9 +7,15 @@ db_user=${DB_USER}
 db_password=${DB_PASSWORD}
 db_host=${DB_HOST}
 db_port=${DB_PORT}
-settings_dir=${SETTINGS_DIR}
+django_project=${DJANGO_PROJECT}
 
-settings_path="/app/${settings_dir}/settings.py"
+project_path="/app/${django_project}"
+settings_path="/app/${django_project}/settings.py"
+
+# Überprüfe, ob der Ordner existiert, und erstelle ein neues Django-Projekt, falls nicht
+if [ ! -d "$project_path" ]; then
+    django-admin startproject $django_project .
+fi
 
 # Entferne bestehende Datenbankeinstellungen
 sed -i "/^DATABASES = {/,/^}/d" $settings_path

@@ -1,6 +1,6 @@
 # Django Docker Environment
 
-This repository sets up a Docker environment for an existing Django project. It allows you to continue coding and developing your Django application within a containerized setup.
+This repository sets up a Docker environment for an existing Django project or a new one. It allows you to continue coding and developing your Django application within a containerized setup.
 
 ## Getting Started
 
@@ -16,9 +16,8 @@ Follow the steps below to set up and run your Django project in a Docker environ
 1. **Clone the repository:**
     ```bash
     git clone <repository-url>
-    cd django-docker/docker-environment
     ```
-2. **Copy the content of the django project folder to the directory or vice versa**
+2. **OPTIONAL: Copy the content of a existing django project folder to the directory or vice versa**
    ````bash
    cp ./<django-project>/* ./
    ````
