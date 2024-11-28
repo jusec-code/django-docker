@@ -3,28 +3,38 @@ services:
     image: postgres:13
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
     environment:
-      POSTGRES_DB: app_db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
   web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: .
+      args:
+        POSTGRES_DB: ${POSTGRES_DB}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        DB_HOST: ${DB_HOST}
+        DB_PORT: ${DB_PORT}
+        DJANGO_PROJECT_DIR: ${DJANGO_PROJECT_DIR}
+        DJANGO_PROJECT_NAME: ${DJANGO_PROJECT_NAME}
+    command: python /app/manage.py runserver 0.0.0.0:8000
     volumes:
       - ./app:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
+    env_file:
+      - .env
     environment:
-      POSTGRES_DB: app_db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      DB_HOST: db
-      DB_PORT: 5432
-      DJANGO_PROJECT_DIR: app
-      DJANGO_PROJECT_NAME: mein_django_projekt
-      DJANGO_SUPERUSER_USERNAME: admin
-      DJANGO_SUPERUSER_PASSWORD: password
-      DJANGO_SUPERUSER_EMAIL: admin@example.com
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DJANGO_PROJECT_DIR: ${DJANGO_PROJECT_DIR}
+      DJANGO_PROJECT_NAME: ${DJANGO_PROJECT_NAME}

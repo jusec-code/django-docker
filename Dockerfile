@@ -5,6 +5,12 @@ FROM python:3.9-slim
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    python3-dev
+
 # Set work directory
 WORKDIR /app
 
@@ -13,19 +19,6 @@ COPY requirements.txt /app/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy project
+# Copy project files
 COPY . /app/
 
-# Create Django project
-ARG DJANGO_PROJECT_NAME
-RUN django-admin startproject $DJANGO_PROJECT_NAME .
-
-# Update settings.py
-RUN python update_settings.py
-
-# Run migrations and create superuser
-ARG DJANGO_SUPERUSER_USERNAME
-ARG DJANGO_SUPERUSER_PASSWORD
-ARG DJANGO_SUPERUSER_EMAIL
-RUN python manage.py migrate && \
-    echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '$DJANGO_SUPERUSER_EMAIL', '$DJANGO_SUPERUSER_PASSWORD')" | python manage.py shell
